@@ -1,0 +1,28 @@
+function Main(input) {
+  input = input.split('\n');
+  let a = 0, b = 0, c = 0;
+  let count = 0;
+  let ary;
+  
+  while(a <= input[0]) {
+    var tmpA = input[3] - 500 * a;
+    if (tmpA == 0) count++;
+      while(b <= input[1]) {
+        var tmpB = tmpA - 100 * b;
+        if (tmpB == 0 && b != 0) count++;
+        while(c <= input[2]) {
+          var tmpC = tmpB - 50 * c;
+          if (tmpC == 0 && c != 0) count++;
+          c++;
+        }
+        // 初期化
+        c = 0;
+        b++;
+      }
+    // 初期化
+    b = 0;
+    a++;
+  }
+  console.log(count);
+}
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));

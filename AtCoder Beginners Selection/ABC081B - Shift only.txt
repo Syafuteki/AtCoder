@@ -1,0 +1,20 @@
+function Main(input) {
+  input = input.split('\n');
+  const length = input[0];
+  const num = input[1].split(' ');
+ 
+  let check = 0;
+  let count = 0;
+  let map = num;
+  while(check == 0) {
+    // 最初は無条件にカウントされるため、後で-1する
+    count++;
+    map = map.map( x => {
+      check += x % 2;
+      return x / 2;
+    });
+  }
+  
+  console.log(count - 1);
+}
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
