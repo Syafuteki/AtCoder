@@ -1,0 +1,29 @@
+function Main(input) {
+  input = input.split('\n');
+  let ary = input[1].split(' ');
+  let max, index;
+  const alice = [], bob = [];
+  
+  //最大値の時のindexの更新と最大値検索
+  function Max() {
+    return ary.reduce( (a, b, c) => { 
+    	if (Number(a) < Number(b)) {
+      	index = c;
+      	return Number(b);
+    	}
+    	return Number(a);
+  	}, 0);
+  }
+  
+  while(0 < ary.length) {
+    alice.push(Max());
+    //取得した最大値をaryから削除
+    ary.splice(index, 1);
+    bob.push(Max());
+    //取得した最大値をaryから削除
+    ary.splice(index, 1);
+  }
+  const result = alice.reduce( (a, b) => a + b) - bob.reduce( (a, b) => a + b);
+  console.log(result);
+}
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));

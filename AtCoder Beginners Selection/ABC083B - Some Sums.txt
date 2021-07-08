@@ -1,0 +1,16 @@
+function Main(input) {
+  input = input.split(' ');
+  let divide, sum = 0;
+  let ary = [];
+  for (let i = 1; i <= input[0]; i++) {
+    divide = String(i).split('');
+    //各桁の合計
+    for (let j = 0; j < divide.length; j++) sum += Number(divide[j]);
+    if (input[1] <= sum && sum <= input[2]) ary.push(i);
+    //初期化
+    sum = 0;
+  }
+  const result = ary.reduce( (a, b) => a + b);
+  console.log(result);
+}
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
