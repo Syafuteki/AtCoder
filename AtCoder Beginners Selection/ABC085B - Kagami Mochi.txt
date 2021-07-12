@@ -1,0 +1,18 @@
+function Main(input) {
+  input = input.split('\n');
+  let ary = [];
+  //最低でも1枚は円形の餅を持っているため
+  let count = 1;
+  
+  for (let i = 1; i <= input[0]; i++) {
+    ary.push(Number(input[i]));
+  }
+  //降順に並べなおす
+  ary.sort( (a, b) => b-a);
+  for (let i = 1; i < input[0]; i++) {
+    if (ary[i - 1] > ary[i]) count++;
+  }
+  console.log(count);
+}
+
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));

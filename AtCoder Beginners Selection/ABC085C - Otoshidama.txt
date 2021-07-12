@@ -1,0 +1,19 @@
+function Main(input) {
+  input = input.split(' ');
+  let result = [-1, -1, -1];
+  
+  //1枚ずつ大きい桁からちまちま検索
+  for (let i = 0; i <= input[0]; i++) {
+    for (let j = 0; j <= input[0] - i; j++) {
+      const k = Number(input[0]) - i - j;
+      //合計金額
+      const sum = 10000 * i + 5000 * j + 1000 * k;
+      //合計枚数
+      const num = i + j + k;
+      if (num == input[0] && sum == input[1]) return console.log(i, j, k);
+    }
+  }
+  console.log('-1 -1 -1');
+}
+
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
