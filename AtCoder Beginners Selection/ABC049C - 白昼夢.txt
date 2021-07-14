@@ -1,0 +1,16 @@
+function Main(input) {
+  ary = ['eraser', 'erase', 'dreamer', 'dream' ];
+  
+  ary.forEach( (x) => {
+    input = input.replace(new RegExp(x, 'g'), '');
+  });
+  //改行文字も一文字にカウントされるため
+  if (input.length == 1) {
+    console.log('YES');
+  } else {
+    console.log('NO');
+  }
+  
+}
+
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));

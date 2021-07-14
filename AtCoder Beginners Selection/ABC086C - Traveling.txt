@@ -1,0 +1,48 @@
+function Main(input) {
+  input = input.split('\n');
+  //初期設定
+  let aryNow = [0, 0];
+  let start = 0;
+  
+  //計算で移動可能な事が分かり次第labelに飛ぶ　～ここに～
+  label: for (let i = 1; i <= input[0]; i++) {
+    let tmp = input[i].split(' ');
+    let stop = tmp[0];
+    let aryTarget = [Number(tmp[1]), Number(tmp[2])];
+    for (let j = start + 1;j <= stop; j++) {
+      switch (true) {
+        case aryNow[0] == aryTarget[0]:
+          switch (true) {
+            case aryNow[1] == aryTarget[1]:
+              //aryNow==aryTargetがtrueの時に残りの時間で丁度よく行き来できるか計算
+              if ((stop - j) % 2 == 0) return console.log('No');
+              //丁度よく行き来できる場合、これ以上やる必要ないため、次に備えて数値調整
+              start = Number(stop);
+              aryNow = aryTarget;
+              //計算で移動可能な事が分かり次第labelに飛ぶ　～ここから～
+              break label;
+            case aryNow[1] < aryTarget[1]:
+              aryNow[1] += 1;
+              break;
+            case aryNow[1] > aryTarget[1]:
+              aryNow[1] -= 1;
+              break;
+                        }
+          break;
+        case aryNow[0] < aryTarget[0]:
+          aryNow[0] += 1;
+          break;
+        case aryNow[0] > aryTarget[0]:
+          aryNow[0] -= 1;
+          break;
+                    }
+    }
+    //時間一杯移動した場合、たどり着けたか調べる
+    if (aryNow.toString() != aryTarget.toString()) return console.log('No');
+    //丁度よくたどり着けた場合、数値調整
+    start = Number(stop);
+  }
+  console.log('Yes');
+}
+
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
