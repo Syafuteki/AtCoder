@@ -16,7 +16,7 @@ function Main(input) {
 
     let left = 0;
     let right = L;
-    while (Math.abs(left - right) > 1) {
+    while (left <= right) {
         let mid = Math.round((left + right) / 2);
         let position = 0;
         let cut_number = 0;
@@ -24,11 +24,13 @@ function Main(input) {
             position += array[index];
             if (position >= mid) {
                 cut_number++;
+                if (mid > L - position) {
+                    cut_number--;
+                }
                 position = 0;
             }
         })
-        let bool = Boolean(cut_number >= K + 1);
-        if (bool) {
+        if (cut_number >= K + 1) {
             left = mid;
         } else {
             right = mid;
