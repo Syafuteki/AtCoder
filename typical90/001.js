@@ -16,17 +16,14 @@ function Main(input) {
 
     let left = 0;
     let right = L;
-    while (Math.abs(left - right) > 1) {
+    while (Math.abs(left - right) != 1) {
         let mid = Math.round((left + right) / 2);
         let position = 0;
         let cut_number = 0;
         array.forEach((element, index) => {
             position += array[index];
-            if (position >= mid) {
+            if (position >= mid && mid <= L - position) {
                 cut_number++;
-                if (mid > L - position) {
-                    cut_number--;
-                }
                 position = 0;
             }
         })
