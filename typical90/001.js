@@ -16,7 +16,7 @@ function Main(input) {
 
     let left = 0;
     let right = L;
-    while (left <= right) {
+    while (Math.abs(left - right) > 1) {
         let mid = Math.round((left + right) / 2);
         let position = 0;
         let cut_number = 0;
