@@ -22,7 +22,7 @@ function Main(input) {
     let left = -1;
     let right = L + 1;
     while (right - left > 1) {
-        let mid = Math.round(left + (right - left) / 2);
+        let mid = left + (right - left) / 2;
         //今の羊羹の長さ
         let position = 0;
         //切った回数
