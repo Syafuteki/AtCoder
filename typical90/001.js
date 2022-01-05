@@ -15,14 +15,17 @@ function Main(input) {
         array.push(Number(line_3[index] - previous));
         previous = line_3[index]
     })
+    //最後の切れ端
     array.push(Number(L - line_3[line_3.length - 1]));
 
     //二分探索
     let left = -1;
     let right = L + 1;
-    while (Math.abs(left - right) > 1) {
-        let mid = Math.round((left + right) / 2);
+    while (right - left > 1) {
+        let mid = Math.round(left + (right - left) / 2);
+        //今の羊羹の長さ
         let position = 0;
+        //切った回数
         let cut_number = 0;
         //mid以上の長さになったら切る
         array.forEach((element, index) => {
@@ -32,7 +35,7 @@ function Main(input) {
                 position = 0;
             }
         })
-        //切った個数がK+1以上か見る
+        //切った個数がK以上か見る
         if (cut_number >= K + 1) {
             left = mid;
         } else {
@@ -40,7 +43,7 @@ function Main(input) {
         }
     }
 
-    console.log(left);
+    console.log(Math.round(left));
 }
 
 Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
