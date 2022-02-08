@@ -4,8 +4,7 @@ function Main(input) {
     const N = input.shift();
 
     let max_bfs = bfs(input, N);
-    let max_dfs = dfs(input, max_bfs);
-
+    let max_dfs = dfs(input, max_bfs, N);
 
     console.log(max_dfs);
 }
@@ -34,33 +33,27 @@ function bfs(input, N) {
     return bfs_distance.indexOf(Math.max(...bfs_distance));
 }
 
-function dfs(input, max_dfs) {
-    //DFSで最短距離の中の最大値を求める
+function dfs(input, max_bfs, N) {
     //次行ける候補地　初期値はbfsで調べた値
     let stack = [max_bfs];
-    //初期化
-    count = 0;
     //1度探索したかどうか
     let seen = new Array(N).fill(false);
-    //最大距離
-    let max_dfs = 0;
-    while (count < N) {
-        //現在地
-        const current = stack[stack.length - 1];
+    let list = [];
+    while (stack.length > 0) {
+        const current = stack.pop();
+        list.push(current);
         input.forEach((element, index) => {
             if (index % 2 != 0 || seen[current]) return;
-            if (current == element && stack.includes(input[index + 1]) == false) {
+            if (current == element && list.includes(input[index + 1]) == false) {
                 stack.push(input[index + 1]);
                 seen[current] = true;
-            } else if (current == input[index + 1] && stack.includes(element) == false) {
+            } else if (current == input[index + 1] && list.includes(element) == false) {
                 stack.push(element);
                 seen[current] = true;
             }
         });
-        if (current == stack[stack.length - 1]) stack.pop();
-        if (max_dfs < stack.length) max_dfs = stack.length;
-        count++;
     }
+    return list.length;
 }
 
 Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
