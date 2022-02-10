@@ -14,7 +14,7 @@ function Main(input) {
         for (let j = 0; j < alphabet.length; j++) {
             //Tに追加した文字より左はみない
             const num = S.indexOf(alphabet[j], start);
-            //N - Kでやると効率がいい＝＞辞書順でK文字確保しないよいけないのであらかじめ後ろの文字を削って調べると速い
+            //辞書順でK文字確保しないといけないのであらかじめ後ろの文字を削って調べると速い
             if (num != -1 && num <= N - K + i) {
                 T += alphabet[j];
                 start = num + 1;
