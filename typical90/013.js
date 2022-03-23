@@ -26,17 +26,13 @@ function Dijkstra(start, agc, end, N, M) {
     //始めにもってこないのは完成した時になんとなく終わりに書いていたため
     while (index != undefined) {
         for (let i = 0; i < M; i++) {
-            const search = agc.filter(e => e[0] == index);
-            const distance = search.reduce((p, c) => {
-                //前の数理より小さくroadよりも小さいかどうか
-                if (p[1] > c[2] && road[c[1] - 1] > c[2]) return [c[1], c[2]];
-                return p;
-            }, [end, 10000 + 1]);
-            if (road[distance[0] - 1] > distance[1] + road[index - 1]) {
-                road[distance[0] - 1] = distance[1] + road[index - 1];
-                queue.push(distance[0]);
+            const from = agc[i][0];
+            const to = agc[i][1];
+            const dist = agc[i][2];
+            if (road[to - 1] > road[from - 1] + dist) {
+                road[to - 1] = road[from - 1] + dist;
+                queue.push(to);
             }
-            index = distance[0];
         }
         index = queue.pop();
     }
