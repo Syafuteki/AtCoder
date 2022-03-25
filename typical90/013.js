@@ -8,7 +8,7 @@ function Main(input) {
     for (let i = 0; i < M; i++) agc.push(input[i + 1].split(/ /).map(Number));
 
     const road1 = Dijkstra(1, agc, N, M);
-    //Nから始めるため、それに自分のアルゴリズムが合うよう調整
+    //Nから始めるため、それに自分のアルゴリズムが合うよう調整 
     agc = agc.map(e => [e[1], e[0], e[2]]);
     const roadN = Dijkstra(N, agc, N, M);
 
