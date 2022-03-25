@@ -7,34 +7,30 @@ function Main(input) {
     let agc = [];
     for (let i = 0; i < M; i++) agc.push(input[i + 1].split(/ /).map(Number));
 
-    const road1 = Dijkstra(1, agc, N, N, M);
+    const road1 = Dijkstra(1, agc, N, M);
     //Nから始めるため、それに自分のアルゴリズムが合うよう調整
     agc = agc.map(e => [e[1], e[0], e[2]]);
-    const roadN = Dijkstra(N, agc, 1, N, M);
+    const roadN = Dijkstra(N, agc, N, M);
 
     for (let i = 0; i < N; i++) console.log(road1[i] + roadN[i]);
 }
 
-function Dijkstra(start, agc, end, N, M) {
+function Dijkstra(start, agc, N, M) {
     const queue = [start];
     const road = new Array(N).fill(10000 + 1);
 
     road[start - 1] = 0;
     let index = start;
 
-    //queueが0個になるまでではなく、indexが未定義までにしたのはpopした後、すぐに条件チェックが入り、最後の1周ができないから
-    //始めにもってこないのは完成した時になんとなく終わりに書いていたため
-    while (index != undefined) {
+    while (queue.length) {
+        index = queue.pop();
         for (let i = 0; i < M; i++) {
-            const from = agc[i][0];
-            const to = agc[i][1];
-            const dist = agc[i][2];
+            const [from, to, dist] = agc[i];
             if (road[to - 1] > road[from - 1] + dist) {
                 road[to - 1] = road[from - 1] + dist;
                 queue.push(to);
             }
         }
-        index = queue.pop();
     }
 
     return road;
